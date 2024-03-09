@@ -1,0 +1,109 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/darkly/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://bootswatch.com/5/sketchy/bootstrap.min.css"> -->
+</head>
+<body>
+<div class="container">
+    <h1>Users List</h1>
+    <div class="users">
+        <table class="table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="sort" onclick="sortByFirtName()">First Name</th>
+                    <th class="sort"  onclick="sortByLastName()">Last Name</th>
+                    <th class="sort"  onclick="sortByBirthDate()">Birthday</th>
+                </tr>
+            </thead>
+            <tbody id="data">
+                
+            </tbody>
+            <footer>
+                <tr>
+                    <th colspan="4" class="text-center">
+                        Pagination
+                    </th>
+                </tr>
+            </footer>
+        </table>
+    </div>
+    <script src="code.js"></script>
+    <script>
+        // Vous devez remplacer la fonction getUsers() par du code
+        const tableBody = document.getElementById("data");
+
+        function getUsers(sortField, order) {
+            if(sortField) {
+                users.sort(function(a, b) {
+                    if (order == 'asc') {
+                        if(a[sortField] < b[sortField])
+                            return -1;
+                    }
+                });
+
+                if(order == 'desc') {
+                    users.reverse();
+                }
+            }
+            tableBody.innerHTML = '';
+            
+            users.map(user => {
+                tableBody.innerHTML += `<tr>
+                                            <td></td>
+                                            <td>${ user.firstName }</td>
+                                            <td>${ user.lastName }</td>
+                                            <td>${ user.birthDate }</td>
+                                        </tr>`;
+            });
+        }
+
+
+        // Champs sur lequel le tri sera effectué
+        var sortField = 'firstName';
+        // Ordre de tri 'asc ou 'desc'
+        var order = 'asc';
+        // Numéo de la page 
+        var currentPage = 1;
+        // Taille de la page
+        var pageSize = 10;
+
+        function sortByFirtName(){
+            if(sortField == 'firstName')
+                order = order == 'asc' ? 'desc' : 'asc';
+            else{
+                sortField = 'firstName';
+                order = 'asc';
+            }
+            getUsers(sortField, order);
+        }
+
+        function sortByLastName(){
+            if(sortField == 'lastName')
+                order = order == 'asc' ? 'desc' : 'asc';
+            else{
+                sortField = 'lastName';
+                order = 'asc';
+            }
+            getUsers(sortField, order);
+        }
+
+        function sortByBirthDate(){
+            if(sortField == 'birthDate')
+                order = order == 'asc' ? 'desc' : 'asc';
+            else{
+                sortField = 'birthDate';
+                order = 'asc';
+            }
+            getUsers(sortField, order);
+        }
+
+        getUsers(sortField, order);
+    </script>
+</div>
+    
+</body>
+</html>
